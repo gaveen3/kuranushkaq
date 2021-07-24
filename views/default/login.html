@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <title>RealClouds | Login</title>
+    {% template "header-meta" . %}
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row center-block">
+            <div class="card card-block col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-10">
+                <div class="row">
+                    <div id="loginApp" class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="row">
+                            <div class="login-logo">
+                                <img style="width: 190px;height: 85px;" src="pub/images/logo.png" alt="LOGO" />
+                            </div>
+                        </div>
+                        <form method="post" v-on:submit.prevent="onLoginSubmit">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon bg-color-transparent">
+                                                <i class="fa fa-envelope-o"></i>
+                                            </div>
+                                            <input type="email" required class="form-control form-control-sm" v-model="user.username" placeholder="Username">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon bg-color-transparent">
+                                                <i class="fa fa-key"></i>
+                                            </div>
+                                            <input type="password" required class="form-control form-control-sm" v-model="user.password" placeholder="Password">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 login-col-xs-6">
+                                            <a class="login-link pull-left" href="mailto:shibingli@realclouds.org">忘记密码？</a>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 login-col-xs-6">
+                                            <input type="submit" class="btn btn-primary pull-right" v-bind:disabled="loginBtnDisabled" v-model="loginBtnVal" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 col-md-6 hidden-sm-down hidden-xs-down login-xl-right-content login-lg-right-content login-md-right-content">
+                        <div class="row login-row-bottom text-left">
+                            <samll style="font-size:14px;">Copyright &copy; 2005-2017.UEC Group Co.,Ltd.</samll>
+                            <a class="login-link" href="http://www.miibeian.gov.cn" target="_blank">京ICP备:14049550号</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% template "footer-pubjs" . %}
+    <script type="text/javascript">
+        rco.particles();
+        rco.loginApp("#loginApp", "blshi@ronglian.com");
+    </script>
+</body>
+
+</html>

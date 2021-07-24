@@ -1,0 +1,15 @@
+package: .
+import:
+- package: github.com/Sirupsen/logrus
+- package: github.com/go-sql-driver/mysql
+- package: github.com/jinzhu/gorm
+- package: github.com/jinzhu/inflection
+- package: github.com/pborman/uuid
+- package: github.com/go-fsnotify/fsnotify
+- package: golang.org/x/sys
+- package: golang.org/x/text
+- package: golang.org/x/crypto
+- package: golang.org/x/net
+- package: gopkg.in/ldap.v2
+- package: gopkg.in/asn1-ber.v1
+- package: gopkg.in/kataras/iris.v6

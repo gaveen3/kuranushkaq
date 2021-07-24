@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <title>RealClouds | Login</title>
+    {% template "header-meta" . %}
+</head>
+
+<body>
+    <header>
+        <nav id="navApp" class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#defaultNavbar" aria-controls="defaultNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">UEC-BioCloud</a>
+            <div class="collapse navbar-collapse" id="defaultNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../">首页<span class="sr-only">Home(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://www.realclouds.org">关于我们</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-secondary" type="submit" v-on:click="logout">退出</button>
+            </div>
+        </nav>
+    </header>
+    <div id="imageTables" class="container-fluid m-t-30">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-header">
+                        镜像列表
+                    </div>
+                    <div class="card-block">
+                        <div class="form-group col-xl-3 col-lg-3 col-md-4 col-sm-12 col-xs-12 pull-right">
+                            <label class="sr-only" for="searchImageName">Name (in dollars)</label>
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                <input v-model="imageName" type="text" class="form-control" id="searchImageName" placeholder="镜像名称">
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-left">名称</th>
+                                    <th class="text-center">类型</th>
+                                    <th class="text-center">大小</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-bind:class="{invisible:inVisible}">
+                                    <td class="text-center" colspan="5">无数据</td>
+                                </tr>
+                                <tr v-for="(image, index) in filterImages">
+                                    <th class="text-center" scope="row">{{ index+1 }}</th>
+                                    <td class="text-left">{{ image.name }}</td>
+                                    <td class="text-center">{{ image.type }}</td>
+                                    <td class="text-center">{{ image.size }}</td>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info btn-sm" v-on:click="copyAddr(image.path);">复制地址</button>
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" v-on:click="viewImage(image.id);">查看详情</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" v-on:click="invalidLink(image.id);">死链处理</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p>Copyright &copy; 2005-2017.UEC Group Co.,Ltd.</p>
+        </footer>
+    </div>
+    {% template "footer-pubjs" . %}
+    <script type="text/javascript" src="/ws/realclouds_ws.js"></script>
+    <script type="text/javascript">
+        rco.defautInit("#imageTables");
+        rco.navApp("#navApp");
+    </script>
+</body>
+
+</html>

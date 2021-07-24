@@ -1,0 +1,30 @@
+hash: f3a90102f1cd22c46f9e1d2c13e21c8ec08464b4236e4ceaecbc7b174535d35b
+updated: 2017-03-31T01:31:29.382955017+08:00
+imports:
+- name: github.com/go-fsnotify/fsnotify
+  version: 4da3e2cfbabc9f751898f250b49f2439785783a1
+- name: github.com/go-sql-driver/mysql
+  version: 53e2a9bf25b20e8f597896666f0663d84e22c68e
+- name: github.com/jinzhu/gorm
+  version: 66d5b42ee9d071458e9a430efeb135b29e51e896
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
+- name: github.com/pborman/uuid
+  version: 1b00554d822231195d1babd97ff4a781231955c9
+- name: github.com/Sirupsen/logrus
+  version: 10f801ebc38b33738c9d17d50860f484a0988ff5
+- name: golang.org/x/crypto
+  version: 459e26527287adbc2adcc5d0d49abff9a5f315a7
+- name: golang.org/x/net
+  version: 6c23252515492caf9b228a9d5cabcdbde29f7f82
+- name: golang.org/x/sys
+  version: 8fd966b47dbdd4faa03de0d06e3d733baeb9a1a9
+- name: golang.org/x/text
+  version: fc7fa097411d30e6708badff276c4c164425590c
+- name: gopkg.in/asn1-ber.v1
+  version: 4e86f4367175e39f69d9358a5f17b4dda270378d
+- name: gopkg.in/kataras/iris.v6
+  version: 0965773755df7ee4e126ca6991bce7d867503c49
+- name: gopkg.in/ldap.v2
+  version: 8168ee085ee43257585e50c6441aadf54ecb2c9f
+testImports: []
