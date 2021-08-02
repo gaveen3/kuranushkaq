@@ -41,8 +41,6 @@ func imageHandle(c websocket.Connection) {
 		newWSResult(c, "error", false, "no", "\nError: Client disconnect.")
 	})
 
-	c.To(ImageRoom).Emit("images", "ssss")
-
 	vmImagesDir := getENV("VM_IMAGES_DIR")
 	if len(vmImagesDir) == 0 {
 		vmImagesDir = "/opt/images/vm"

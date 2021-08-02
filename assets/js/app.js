@@ -160,12 +160,12 @@
                     return this.images.length !== 0
                 },
                 filterImages: function() {
-                    var searchName = this.imageName;
+                    var searchName = this.imageName.toLowerCase();
                     return this.images.filter(function(image) {
-                        if (searchName.length == 0) {
+                        if (searchName.length === 0) {
                             return true;
                         } else {
-                            return image.name.indexOf(searchName) > -1
+                            return image.name.toLowerCase().indexOf(searchName) > -1
                         }
                     });
                 }
