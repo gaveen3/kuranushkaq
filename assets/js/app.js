@@ -194,7 +194,8 @@
                 }
             },
             created: function() {
-                var downAddr = location.protocol + location.hostname + ((location.port) ? (":" + location.port) : "")
+                var protocol = (location.protocol === "https:") ? "https://" : "http://";
+                var downAddr = protocol + location.hostname + ((location.port) ? (":" + location.port) : "")
                 sock.On("imagesResult", function(data) {
                     var json = rco.toJSON(data);
                     if (json.ok) {
