@@ -60,7 +60,7 @@
                         cache: false,
                     }).done(function(data) {
                         var json = data;
-                        if (typeof(data) != "object") {
+                        if (typeof(data) !== "object") {
                             json = $.parseJSON(data);
                         }
                         if (json.ok) {
