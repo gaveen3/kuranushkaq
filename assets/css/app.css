@@ -124,7 +124,8 @@ body {
 }
 
 .login-logo {
-    margin-bottom: 30px;
+    padding-top: 20px;
+    margin-bottom: 50px;
 }
 
 @media (max-width: 575px) {
@@ -152,7 +153,7 @@ body {
         width: 50%;
         height: 100%;
         position: absolute;
-        background: url(../images/login-right-cloud.jpg) repeat-y right center;
+        background: url(../images/login-right-cloud-02.jpg) repeat-y right center;
         float: left;
         border-radius: 0 4px 4px 0;
         -moz-border-radius: 0 4px 4px 0;
@@ -168,7 +169,7 @@ body {
         width: 50%;
         height: 100%;
         position: absolute;
-        background: url(../images/login-right-cloud.jpg) repeat-y right center;
+        background: url(../images/login-right-cloud-02.jpg) repeat-y right center;
         float: left;
         border-radius: 0 4px 4px 0;
         -moz-border-radius: 0 4px 4px 0;
@@ -184,7 +185,7 @@ body {
         width: 50%;
         height: 100%;
         position: absolute;
-        background: url(../images/login-right-cloud.jpg) repeat-y right center;
+        background: url(../images/login-right-cloud-02.jpg) repeat-y right center;
         float: left;
         border-radius: 0 4px 4px 0;
         -moz-border-radius: 0 4px 4px 0;
@@ -200,7 +201,7 @@ body {
         width: 50%;
         height: 100%;
         position: absolute;
-        background: url(../images/login-right-cloud.jpg) repeat-y right center;
+        background: url(../images/login-right-cloud-02.jpg) repeat-y right center;
         float: left;
         border-radius: 0 4px 4px 0;
         -moz-border-radius: 0 4px 4px 0;
@@ -216,7 +217,7 @@ body {
         width: 50%;
         height: 100%;
         position: absolute;
-        background: url(../images/login-right-cloud.jpg) repeat right center;
+        background: url(../images/login-right-cloud-02.jpg) repeat right center;
         float: left;
         border-radius: 0 4px 4px 0;
         -moz-border-radius: 0 4px 4px 0;
