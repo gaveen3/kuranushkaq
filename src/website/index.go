@@ -98,6 +98,7 @@ func imagePathWalk(p string, f os.FileInfo, err error) error {
 			case ".raw":
 				t = "raw"
 			}
+
 			name := f.Name()
 			image := &models.Image{
 				Name: strings.TrimRight(name, "."+t),
