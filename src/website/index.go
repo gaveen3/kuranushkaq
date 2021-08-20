@@ -3,6 +3,7 @@ package website
 import (
 	"os"
 	"path/filepath"
+	log "rclog"
 	"strings"
 
 	"models"
@@ -33,7 +34,7 @@ const (
 )
 
 func imageHandle(c websocket.Connection) {
-	LogDebugln("Connection:", c.ID())
+	log.Debugln("Connection:", c.ID())
 
 	c.Join(ImageRoom)
 
@@ -41,12 +42,9 @@ func imageHandle(c websocket.Connection) {
 		newWSResult(c, "error", false, "no", "\nError: Client disconnect.")
 	})
 
-	vmImagesDir := getENV("VM_IMAGES_DIR")
-	if len(vmImagesDir) == 0 {
-		vmImagesDir = "/opt/images/vm"
-	}
 	c.On("loadImages", func(s string) {
-		if err := LoadImageDir(vmImagesDir); nil != err {
+		imagesDir := c.Context().GetString("VMImagesDir")
+		if err := LoadImageDir(imagesDir); nil != err {
 			newWSResult(c, "error", false, "no", err.Error())
 		}
 		newWSResult(c, "imagesResult", true, "ok", Images)
@@ -59,7 +57,7 @@ func newWSResult(c websocket.Connection, event string, ok bool, msg string, data
 		Msg:  strings.TrimSpace(msg),
 		Data: data,
 	}); nil != err {
-		LogErrorln(err)
+		log.Errorln(err)
 	}
 }
 

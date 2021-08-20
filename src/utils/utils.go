@@ -40,7 +40,11 @@ var (
 	DevNull       = os.DevNull
 )
 
-func Get_Bin_Path() (string, error) {
+func GetENV(key string) string {
+	return strings.TrimSpace(strings.ToLower(os.Getenv(key)))
+}
+
+func GetBinPath() (string, error) {
 	file, _ := exec.LookPath(os.Args[0])
 	bin_path, _ := filepath.Abs(file)
 	bin_path, err := filepath.EvalSymlinks(bin_path)
@@ -50,13 +54,13 @@ func Get_Bin_Path() (string, error) {
 	return bin_path, nil
 }
 
-func Get_Bin_Dir() string {
-	binPath, _ := Get_Bin_Path()
+func GetBinDir() string {
+	binPath, _ := GetBinPath()
 	return filepath.Dir(binPath)
 }
 
-func Get_Project_Dir() string {
-	dirs := strings.Split(Get_Bin_Dir(), PathSeparator)
+func GetProjectDir() string {
+	dirs := strings.Split(GetBinDir(), PathSeparator)
 	project_path := strings.Join(dirs[:len(dirs)-1], PathSeparator)
 	return project_path
 }
@@ -447,7 +451,7 @@ func MkDirAll(dir string) error {
 	return nil
 }
 
-func Get_File_Size(fileSize int64) string {
+func GetFileSizeToUnit(fileSize int64) string {
 	ff_size := float64(fileSize)
 	var (
 		fs   string
@@ -479,7 +483,7 @@ func Daemon(nochdir, noclose int) (int, error) {
 	if syscall.Getppid() == 1 {
 		syscall.Umask(0)
 		if nochdir == 0 {
-			binPath, _ := Get_Bin_Path()
+			binPath, _ := GetBinPath()
 			os.Chdir(binPath)
 		}
 		return 0, nil
@@ -495,8 +499,10 @@ func Daemon(nochdir, noclose int) (int, error) {
 		files[0], files[1], files[2] = os.Stdin, os.Stdout, os.Stderr
 	}
 	sysattrs := syscall.SysProcAttr{Setsid: true}
-	attrs := os.ProcAttr{Dir: Get_Bin_Dir(), Env: os.Environ(), Files: files, Sys: &sysattrs}
-	binPath, _ := Get_Bin_Path()
+	fmt.Fprintln(os.Stderr, GetBinDir())
+	attrs := os.ProcAttr{Dir: GetBinDir(), Env: os.Environ(), Files: files, Sys: &sysattrs}
+	binPath, _ := GetBinPath()
+	fmt.Fprintln(os.Stderr, binPath)
 	proc, err := os.StartProcess(binPath, os.Args, &attrs)
 	if err != nil {
 		return -1, err

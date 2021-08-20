@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	log "rclog"
 	"runtime"
 
 	"website"
@@ -10,7 +11,7 @@ import (
 func init() {
 	if err :=
 		os.Setenv("LANG", "C"); nil != err {
-		website.LogFatalln(err)
+		log.Fatalln(err)
 	}
 }
 

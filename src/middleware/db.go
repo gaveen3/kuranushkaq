@@ -11,17 +11,17 @@ const (
 	CONTEXT string = "DB"
 )
 
-type dbMiddleware struct {
+type dbMw struct {
 	db *gorm.DB
 }
 
-func (m *dbMiddleware) Serve(ctx *iris.Context) {
+func (m *dbMw) Serve(ctx *iris.Context) {
 	ctx.Set(CONTEXT, m.db)
 	ctx.Next()
 }
 
-//NewDBMiddleware *
-func NewDBMiddleware(db *gorm.DB) iris.HandlerFunc {
-	dbmw := &dbMiddleware{db: db}
+//NewDB *
+func NewDB(db *gorm.DB) iris.HandlerFunc {
+	dbmw := &dbMw{db: db}
 	return dbmw.Serve
 }

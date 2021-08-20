@@ -2,9 +2,8 @@ package website
 
 import (
 	"ldap"
+	log "rclog"
 	"strings"
-
-	"utils"
 
 	iris "gopkg.in/kataras/iris.v6"
 )
@@ -28,41 +27,20 @@ func (l *Login) Login(ctx *iris.Context) {
 	username := formValue(ctx, "username")
 	password := formValue(ctx, "password")
 
-	LogDebugln("User:", username, password)
+	log.Debugln("User:", username, "***********")
+
+	ldapPort, err := ctx.GetInt("LdapPort")
+	if nil != err {
+		log.Errorln(err)
+	}
+
+	lc := ldap.NewLDAPClient(ctx.GetString("LdapAddr"), ldapPort, true, ctx.GetString("LdapDC"), username, password, ctx.GetString("LdapType"))
+	defer lc.Close()
 
 	result := Result{}
 
-	ldapAddr := getENV("LDAP_ADDR")
-	if len(ldapAddr) == 0 {
-		ldapAddr = "10.0.99.100"
-	}
-
-	ldapPort := getENV("LDAP_PORT")
-	if len(ldapPort) == 0 {
-		ldapPort = "636"
-	}
-
-	lPort, err := utils.StringUtils(ldapPort).Int()
-	if nil != err {
-		LogErrorln("Invalid LDAP port. Default:636")
-		lPort = 636
-	}
-
-	ldapDC := getENV("LDAP_DC")
-	if len(ldapDC) == 0 {
-		ldapDC = "dc=ronglian,dc=com"
-	}
-
-	ldapType := getENV("LDAP_TYPE")
-	if len(ldapType) == 0 {
-		ldapType = "ad"
-	}
-
-	lc := ldap.NewLDAPClient(ldapAddr, int(lPort), true, ldapDC, username, password, ldapType)
-	defer lc.Close()
-
 	if _, err := lc.Authenticate(); nil != err {
-		LogDebugln(err)
+		log.Debugln(err)
 		result.Ok = false
 		ctx.JSON(iris.StatusOK, result)
 	} else {

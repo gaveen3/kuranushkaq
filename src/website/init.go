@@ -2,9 +2,10 @@ package website
 
 import (
 	"fmt"
-	"os"
-	"strings"
+	rcMw "middleware"
+	log "rclog"
 	"time"
+	"utils"
 
 	"gopkg.in/kataras/iris.v6"
 	"gopkg.in/kataras/iris.v6/adaptors/cors"
@@ -12,8 +13,6 @@ import (
 	"gopkg.in/kataras/iris.v6/adaptors/sessions"
 	"gopkg.in/kataras/iris.v6/adaptors/view"
 	"gopkg.in/kataras/iris.v6/adaptors/websocket"
-
-	rcMw "middleware"
 )
 
 var (
@@ -26,8 +25,11 @@ func init() {
 	app.Adapt(iris.DevLogger())
 
 	app.Adapt(httprouter.New())
-	app.UseGlobal(rcMw.NewHeaderMiddleware("rcs/v1.2", "realclouds.org"))
-	app.Adapt(view.HTML("./views/default", ".html").Delims("{%", "%}").Reload(true))
+
+	app.UseGlobal(rcMw.NewServeHeader("rcs/v1.2", "realclouds.org"))
+	app.UseGlobal(rcMw.NewOSEnv())
+
+	app.Adapt(view.HTML(utils.GetBinDir()+"/views/default", ".html").Delims("{%", "%}").Reload(true))
 
 	ws := websocket.New(websocket.Config{
 		ReadBufferSize:   1024,
@@ -40,9 +42,9 @@ func init() {
 
 	app.Adapt(ws)
 
-	app.StaticWeb("/pub", "./assets")
+	app.StaticWeb("/pub", utils.GetBinDir()+"/assets")
 
-	vmImagesDir := getENV("VM_IMAGES_DIR")
+	vmImagesDir := utils.GetENV("VM_IMAGES_DIR")
 	if len(vmImagesDir) == 0 {
 		vmImagesDir = "/opt/images/vm"
 	}
@@ -60,9 +62,13 @@ func init() {
 		AllowedOrigins: []string{"*"},
 	}))
 
-	// app.OnError(iris.StatusNotFound, func(ctx *iris.Context) {
-	// 	ctx.Render("404.html", nil)
-	// })
+	app.OnError(iris.StatusNotFound, func(ctx *iris.Context) {
+		ctx.Render("404.html", nil)
+	})
+
+	app.OnError(iris.StatusInternalServerError, func(ctx *iris.Context) {
+		ctx.Render("500.html", nil)
+	})
 }
 
 // None registers an "offline" route
@@ -125,30 +131,26 @@ func Any(path string, handlersFn ...iris.HandlerFunc) {
 	app.Any(path, handlersFn...)
 }
 
-func getENV(key string) string {
-	return strings.TrimSpace(strings.ToLower(os.Getenv(key)))
-}
-
 //Run WebSite
 func Run() {
-	port := getENV("PORT")
+	port := utils.GetENV("PORT")
 	if len(port) == 0 {
 		port = "8080"
 	}
 
-	tlsPort := getENV("TLS_PORT")
+	tlsPort := utils.GetENV("TLS_PORT")
 	if len(tlsPort) == 0 {
 		tlsPort = "8443"
 	}
 
-	tls := getENV("TLS")
+	tls := utils.GetENV("TLS")
 	if len(tls) > 0 && "true" == tls {
-		cert := getENV("CERT")
-		key := getENV("KEY")
+		cert := utils.GetENV("CERT")
+		key := utils.GetENV("KEY")
 		if len(cert) > 0 && len(key) > 0 {
 			app.ListenTLS(":"+tlsPort, cert, key)
 		} else {
-			LogFatalln(fmt.Errorf("%s", "Invalid certificate configuration."))
+			log.Fatalln(fmt.Errorf("%s", "Invalid certificate configuration."))
 		}
 	} else {
 		app.Listen(":" + port)
