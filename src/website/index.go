@@ -33,6 +33,7 @@ const (
 	ImageRoom string = "iRoom"
 )
 
+//imageHandle WsImages WebSocket handle
 func imageHandle(c websocket.Connection) {
 	log.Debugln("Connection:", c.ID())
 
