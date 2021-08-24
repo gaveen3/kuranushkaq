@@ -1,12 +1,11 @@
 package website
 
 import (
+	"models"
 	"os"
 	"path/filepath"
 	log "rclog"
 	"strings"
-
-	"models"
 
 	iris "gopkg.in/kataras/iris.v6"
 	"gopkg.in/kataras/iris.v6/adaptors/websocket"
