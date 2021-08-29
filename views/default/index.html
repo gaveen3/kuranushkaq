@@ -8,32 +8,24 @@
 
 <body>
     <header>
-        <nav id="navApp" class="navbar navbar-toggleable-md navbar-light bg-primary">
+        <nav id="navApp" class="navbar fixed-top navbar-light bg-primary">
             <a class="navbar-brand" href="../">
                 <img src="pub/images/logo.png" width="160" height="35" />
             </a>
-            <div class="collapse navbar-collapse" id="defaultNavbar">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="../">首页<span class="sr-only">Home(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="mailto:blshi@ronglian.com">联系我们</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <button class="btn btn-outline-success" type="submit" v-on:click="logout">退出</button>
-                    </li>
-                </ul>
-            </div>
-
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#defaultNavbar">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#defaultNavbar" aria-controls="defaultNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="defaultNavbar">
+                <ul class="navbar-nav mr-auto mt-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="mailto:blshi@ronglian.com">联系我们 <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-success" type="submit" v-on:click="logout">退出</button>
+            </div>
         </nav>
     </header>
-    <div id="imageTables" class="container-fluid mt-3">
+    <div id="imageTables" class="container-fluid pt-8">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
