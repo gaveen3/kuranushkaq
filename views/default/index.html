@@ -10,17 +10,16 @@
     <header>
         <nav id="navApp" class="navbar fixed-top navbar-light bg-primary">
             <a class="navbar-brand" href="../">
-                <img src="pub/images/logo.png" width="160" height="35" />
+                <img class="d-inline-block align-top" src="/pub/images/logo.png" width="160" height="35" />
             </a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#defaultNavbar" aria-controls="defaultNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="defaultNavbar">
-                <ul class="navbar-nav mr-auto mt-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="mailto:blshi@ronglian.com">联系我们 <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="mailto:blshi@ronglian.com">联系我们 <span class="sr-only">(current)</span></a>
+
+                </div>
                 <button class="btn btn-outline-success" type="submit" v-on:click="logout">退出</button>
             </div>
         </nav>
