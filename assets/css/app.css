@@ -8,6 +8,11 @@
 
 @media (min-width: 1200px) {}
 
+* {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
 html {
     height: 100%;
 }
@@ -17,7 +22,6 @@ body {
     color: #555;
     overflow-x: hidden;
     background: #f7fafc;
-    -webkit-font-smoothing: antialiased;
 }
 
 .footer {

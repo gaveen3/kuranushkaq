@@ -17,10 +17,33 @@
 }(function(RealClouds) {
     'use strict';
 
+    NProgress.configure({
+        minimum: 0.5,
+        showSpinner: false,
+        ease: 'ease',
+        speed: 400
+    });
+
+    (function() {
+        document.onreadystatechange = function() {
+            NProgress.start();
+            if (document.readyState === "uninitialized") {
+                NProgress.set(1);
+            }
+            if (document.readyState === "interactive") {
+                NProgress.set(0.6);
+            }
+            if (document.readyState === "complete") {
+                NProgress.done();
+            }
+        }
+    })();
+
     //ReadClouds plugins
     var rco = typeof RealClouds !== 'undefined' ? RealClouds : {};
 
     rco.version = '0.0.1';
+
 
     rco.navApp = function(elApp) {
         var navApp = new Vue({
@@ -126,7 +149,17 @@
             sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
             i = Math.floor(Math.log(bytes) / Math.log(k));
         return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
-    }
+    };
+
+    rco.GetHttpProtocol = function() {
+        var protocol = (location.protocol === "https:") ? "https://" : "http://";
+        return protocol;
+    };
+
+    rco.GetWebSockProtocol = function() {
+        var protocol = (location.protocol === "https:") ? "wss://" : "ws://";
+        return protocol;
+    };
 
     rco.defautInit = function(elApp) {
         var resultScrollBottom = function() {
@@ -134,8 +167,7 @@
             var scrollTop = $(resultDiv)[0].scrollTop;
             $(resultDiv).scrollTop(scrollHeight + scrollTop);
         };
-        var protocol = (location.protocol === "https:") ? "wss://" : "ws://";
-        var sockURL = protocol + location.hostname + ((location.port) ? (":" + location.port) : "") + "/ws/image?_=" + Math.random();
+        var sockURL = rco.GetWebSockProtocol() + location.hostname + ((location.port) ? (":" + location.port) : "") + "/ws/image?_=" + Math.random();
         var sock = new Ws(sockURL);
 
         var ss = Base64.encode("sfsdfasdffasddafdgdfgsfgh==");
@@ -194,8 +226,7 @@
                 }
             },
             created: function() {
-                var protocol = (location.protocol === "https:") ? "https://" : "http://";
-                var downAddr = protocol + location.hostname + ((location.port) ? (":" + location.port) : "")
+                var downAddr = rco.GetHttpProtocol() + location.hostname + ((location.port) ? (":" + location.port) : "")
                 sock.On("imagesResult", function(data) {
                     var json = rco.toJSON(data);
                     if (json.ok) {
