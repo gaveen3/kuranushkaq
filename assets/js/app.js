@@ -17,6 +17,8 @@
 }(function(RealClouds) {
     'use strict';
 
+
+    //Global configure
     NProgress.configure({
         minimum: 0.5,
         showSpinner: false,
@@ -37,6 +39,14 @@
                 NProgress.done();
             }
         }
+
+        $(document).ajaxStart(function() {
+            NProgress.start();
+        });
+
+        $(document).ajaxStop(function() {
+            NProgress.done();
+        });
     })();
 
     //ReadClouds plugins
@@ -169,8 +179,6 @@
         };
         var sockURL = rco.GetWebSockProtocol() + location.hostname + ((location.port) ? (":" + location.port) : "") + "/ws/image?_=" + Math.random();
         var sock = new Ws(sockURL);
-
-        var ss = Base64.encode("sfsdfasdffasddafdgdfgsfgh==");
 
         sock.OnConnect(function() {
             rco.msg('ok', 'fa-check', '与服务器连接成功。', "ronglian.com");
