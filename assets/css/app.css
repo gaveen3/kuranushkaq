@@ -63,6 +63,19 @@ body {
     bottom: 0;
     color: #fff;
     padding-left: 5px;
+    padding-right: 5px;
+}
+
+.login-row-bottom samll {
+    font-size: 12px;
+}
+
+.login-row-bottom a {
+    font-size: 12px;
+    height: 36px;
+    line-height: 36px;
+    display: block;
+    color: #b5babe;
 }
 
 .login-row-bottom a {
@@ -98,39 +111,13 @@ body {
     }
 }
 
-@media (max-width: 479px) {
-    .login-xs-right-content {
-        z-index: 999;
-        top: 0;
-        right: 0;
-        width: 50%;
-        height: 100%;
-        position: absolute;
-        background: url(../images/login-right-cloud-02.jpg) repeat-y right center;
-        float: left;
-        border-radius: 0 4px 4px 0;
-        -moz-border-radius: 0 4px 4px 0;
-        -webkit-border-radius: 0 4px 4px 0;
+@media (max-width: 767px) {
+    .login-md-right-content {
+        visibility: hidden !important;
     }
 }
 
-@media (min-width: 480px) and (max-width: 719px) {
-    .login-sm-right-content {
-        z-index: 999;
-        top: 0;
-        right: 0;
-        width: 50%;
-        height: 100%;
-        position: absolute;
-        background: url(../images/login-right-cloud-02.jpg) repeat-y right center;
-        float: left;
-        border-radius: 0 4px 4px 0;
-        -moz-border-radius: 0 4px 4px 0;
-        -webkit-border-radius: 0 4px 4px 0;
-    }
-}
-
-@media (min-width: 720px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 991px) {
     .login-md-right-content {
         z-index: 999;
         top: 0;
@@ -178,24 +165,6 @@ body {
     }
 }
 
-.login-link {
-    font-size: 14px;
-    height: 36px;
-    line-height: 36px;
-    display: block;
-    color: #b5babe;
-}
-
-.login-line-font {
-    padding: 0 8px;
-    position: relative;
-    top: -15px;
-    width: 100%;
-    background: #fff;
-    font-size: 12px;
-    color: #8f979e;
-}
-
 .login-line {
     text-align: center;
     margin: 20px 0 20px 0;
@@ -203,6 +172,16 @@ body {
     width: 100%;
     border: 1px dashed #eff0f2;
     height: 1px;
+}
+
+.login-line span {
+    padding: 0 8px;
+    position: relative;
+    top: -15px;
+    width: 100%;
+    background: #fff;
+    font-size: 12px;
+    color: #8f979e;
 }
 
 

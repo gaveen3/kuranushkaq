@@ -41,10 +41,10 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+                                    <th class="text-center hidden-sm-down hidden-xs-down">#</th>
                                     <th class="text-left">名称</th>
                                     <th class="text-center">类型</th>
-                                    <th class="text-center">大小</th>
+                                    <th class="text-center hidden-sm-down">大小</th>
                                     <th class="text-center">操作</th>
                                 </tr>
                             </thead>
@@ -53,10 +53,10 @@
                                     <td class="text-center" colspan="5">无数据</td>
                                 </tr>
                                 <tr v-for="(image, index) in filterImages">
-                                    <th class="text-center" scope="row">{{ index+1 }}</th>
+                                    <th class="text-center hidden-sm-down hidden-xs-down" scope="row">{{ index+1 }}</th>
                                     <td class="text-left">{{ image.name }}</td>
                                     <td class="text-center">{{ image.type }}</td>
-                                    <td class="text-center">{{ image.size }}</td>
+                                    <td class="text-center hidden-sm-down hidden-xs-down">{{ image.size }}</td>
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-info btn-sm" v-on:click="copyAddr(image.path);">复制地址</button>
