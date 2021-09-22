@@ -54,6 +54,32 @@
 
     rco.version = '0.0.1';
 
+    rco.contact_us = function(elm) {
+        $(elm).each(function() {
+            var t = $(this).attr("t");
+
+            var createTips = function(elm, img) {
+                $(elm).tooltip({
+                    html: true,
+                    placement: "top",
+                    title: '<div class="p-xl-2"><img style="width: 150px;height: 150px;" src=' + img + '/></div>'
+                });
+            };
+
+            if ('weixin' === t) {
+                createTips(this, "/pub/images/ronglian_weixin.jpg");
+            };
+
+            if ('qq' === t) {
+
+            };
+
+            if ('weibo' === t) {
+                createTips(this, "/pub/images/ronglian_weibo.jpg");
+            };
+        });
+    };
+
 
     rco.navApp = function(elApp) {
         var navApp = new Vue({
