@@ -70,12 +70,12 @@
                 createTips(this, "/pub/images/ronglian_weixin.jpg");
             };
 
-            if ('qq' === t) {
-
+            if ('weibo' === t) {
+                createTips(this, "/pub/images/ronglian_weibo.png");
             };
 
-            if ('weibo' === t) {
-                createTips(this, "/pub/images/ronglian_weibo.jpg");
+            if ('browser' === t) {
+                createTips(this, "/pub/images/ronglian_browser.png");
             };
         });
     };
