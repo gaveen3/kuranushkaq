@@ -88,6 +88,8 @@ body {
 }
 
 .login-logo {
+    width: 160px;
+    height: 35px;
     padding-top: 10px;
     margin-bottom: 30px;
 }
