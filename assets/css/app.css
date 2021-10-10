@@ -90,8 +90,8 @@ body {
 .login-logo {
     width: 160px;
     height: 35px;
-    padding-top: 10px;
-    margin-bottom: 40px;
+    padding-top: 20px;
+    margin-bottom: 60px;
 }
 
 @media (max-width: 575px) {
