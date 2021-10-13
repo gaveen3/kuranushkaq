@@ -61,8 +61,13 @@ func GetBinDir() string {
 
 func GetProjectDir() string {
 	dirs := strings.Split(GetBinDir(), PathSeparator)
-	project_path := strings.Join(dirs[:len(dirs)-1], PathSeparator)
-	return project_path
+	pjtPath := strings.Join(dirs, PathSeparator)
+	srcIndex := strings.Index(pjtPath, "/src")
+	if srcIndex != -1 {
+		pjtPath = pjtPath[:srcIndex]
+	}
+	pjtPath = strings.TrimRight(pjtPath, PathSeparator)
+	return pjtPath
 }
 
 func DateToStr(time time.Time) string {

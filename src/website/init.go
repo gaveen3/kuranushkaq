@@ -29,7 +29,7 @@ func init() {
 	app.UseGlobal(rcMw.NewServeHeader("rcs/v1.2", "realclouds.org"))
 	app.UseGlobal(rcMw.NewOSEnv())
 
-	app.Adapt(view.HTML(utils.GetBinDir()+"/views/default", ".html").Delims("{%", "%}").Reload(true))
+	app.Adapt(view.HTML(utils.GetProjectDir()+"/views/default", ".html").Delims("{%", "%}").Reload(true))
 
 	ws := websocket.New(websocket.Config{
 		ReadBufferSize:   1024,
@@ -42,7 +42,7 @@ func init() {
 
 	app.Adapt(ws)
 
-	app.StaticWeb("/pub", utils.GetBinDir()+"/assets")
+	app.StaticWeb("/pub", utils.GetProjectDir()+"/assets")
 
 	vmImagesDir := utils.GetENV("VM_IMAGES_DIR")
 	if len(vmImagesDir) == 0 {
