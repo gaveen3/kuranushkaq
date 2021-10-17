@@ -31,3 +31,4 @@ vsc_plugin.sh
 *-test
 tasks.json
 .vscode
+certcache

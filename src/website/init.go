@@ -2,8 +2,8 @@ package website
 
 import (
 	"fmt"
+	"log"
 	rcMw "middleware"
-	log "rclog"
 	"time"
 	"utils"
 
@@ -150,7 +150,12 @@ func Run() {
 		if len(cert) > 0 && len(key) > 0 {
 			app.ListenTLS(":"+tlsPort, cert, key)
 		} else {
-			log.Fatalln(fmt.Errorf("%s", "Invalid certificate configuration."))
+			tlsHost := utils.GetENV("TLS_HOST")
+			if len(tlsHost) != 0 {
+				app.ListenLETSENCRYPT(tlsHost + ":" + tlsPort)
+			} else {
+				log.Fatalln(fmt.Errorf("%s", "Invalid certificate configuration."))
+			}
 		}
 	} else {
 		app.Listen(":" + port)
