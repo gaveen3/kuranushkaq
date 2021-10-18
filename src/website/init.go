@@ -144,7 +144,7 @@ func Run() {
 	}
 
 	tls := utils.GetENV("TLS")
-	if len(tls) > 0 && "true" == tls {
+	if len(tls) > 0 && ("true" == tls || "1" == tls) {
 		cert := utils.GetENV("CERT")
 		key := utils.GetENV("KEY")
 		if len(cert) > 0 && len(key) > 0 {
