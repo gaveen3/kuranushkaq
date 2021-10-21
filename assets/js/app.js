@@ -198,11 +198,6 @@
     };
 
     rco.defautInit = function(elApp) {
-        var resultScrollBottom = function() {
-            var scrollHeight = $(resultDiv)[0].scrollHeight;
-            var scrollTop = $(resultDiv)[0].scrollTop;
-            $(resultDiv).scrollTop(scrollHeight + scrollTop);
-        };
         var sockURL = rco.GetWebSockProtocol() + location.hostname + ((location.port) ? (":" + location.port) : "") + "/ws/image?_=" + Math.random();
         var sock = new Ws(sockURL);
 
