@@ -84,7 +84,7 @@ func imagePathWalk(p string, f os.FileInfo, err error) error {
 	if f.Size() > 0 {
 		ext := strings.ToLower(filepath.Ext(p))
 
-		if ".iso" == ext || ".qcow2" == ext || ".raw" == ext {
+		if ".iso" == ext || ".qcow2" == ext || ".raw" == ext || ".ova" == ext {
 
 			var t string
 
@@ -95,6 +95,8 @@ func imagePathWalk(p string, f os.FileInfo, err error) error {
 				t = "qcow2"
 			case ".raw":
 				t = "raw"
+			case ".ova":
+				t = "ova"
 			}
 
 			name := f.Name()
