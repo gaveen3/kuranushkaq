@@ -259,6 +259,7 @@
                 sock.On("imagesResult", function(data) {
                     var json = rco.toJSON(data);
                     if (json.ok) {
+                        initApp.images = [];
                         var imageArr = json.data;
                         for (var i in json.data) {
                             var img = imageArr[i];
@@ -323,29 +324,6 @@
             }
         }
     });
-
-
-    $.fn.loading = function(options) {
-        if (options === undefined) {
-            options = {};
-        }
-        var text, ico_class, _safe = this;
-        text = options.text === undefined ? "Loading..." : options.text;
-        ico_class = options.ico_class === undefined ? "fa fa-refresh fa-spin fa-3x fa-fw" : options.ico_class;
-        var overlay = $('<div><i class="' + ico_class + '"></i> ' + text + '</div>');
-        _safe.html("");
-        _safe.css({
-            "position": "relative"
-        });
-        _safe.append(overlay);
-        $(overlay).css({
-            "display": "inline-block",
-            "position": "absolute",
-            "z-index": 99999,
-            "top": "40%",
-            "left": "45%"
-        });
-    };
 
     rco.particles = function() {
         $.particles();

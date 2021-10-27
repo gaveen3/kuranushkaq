@@ -7,6 +7,8 @@ import (
 	log "rclog"
 	"strings"
 
+	"github.com/go-fsnotify/fsnotify"
+
 	iris "gopkg.in/kataras/iris.v6"
 	"gopkg.in/kataras/iris.v6/adaptors/websocket"
 )
@@ -36,19 +38,57 @@ const (
 func imageHandle(c websocket.Connection) {
 	log.Debugln("Connection:", c.ID())
 
+	imagesDir := c.Context().GetString("VMImagesDir")
+
+	log.Debugln("VM images dir:", imagesDir)
+
 	c.Join(ImageRoom)
 
 	c.OnDisconnect(func() {
 		newWSResult(c, "error", false, "no", "\nError: Client disconnect.")
 	})
 
+	go watcherImagesDir(c, imagesDir)
+
 	c.On("loadImages", func(s string) {
-		imagesDir := c.Context().GetString("VMImagesDir")
 		if err := LoadImageDir(imagesDir); nil != err {
 			newWSResult(c, "error", false, "no", err.Error())
 		}
 		newWSResult(c, "imagesResult", true, "ok", Images)
 	})
+}
+
+func watcherImagesDir(c websocket.Connection, imagesDir string) {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Errorln(err)
+	}
+	defer watcher.Close()
+
+	done := make(chan bool)
+	go func() {
+		for {
+			select {
+			case event := <-watcher.Events:
+				log.Debugln("Watcher event:", event)
+				eop := event.Op
+				if eop&fsnotify.Create == fsnotify.Create || eop&fsnotify.Remove == fsnotify.Remove || eop&fsnotify.Rename == fsnotify.Rename {
+					if err := LoadImageDir(imagesDir); nil != err {
+						newWSResult(c, "error", false, "no", err.Error())
+					}
+					newWSResult(c, "imagesResult", true, "ok", Images)
+				}
+			case err := <-watcher.Errors:
+				log.Debugln("error:", err)
+			}
+		}
+	}()
+
+	err = watcher.Add(imagesDir)
+	if err != nil {
+		log.Errorln(err)
+	}
+	<-done
 }
 
 func newWSResult(c websocket.Connection, event string, ok bool, msg string, data interface{}) {
