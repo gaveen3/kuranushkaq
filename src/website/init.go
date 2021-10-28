@@ -22,7 +22,7 @@ var (
 func init() {
 	app.Config.Gzip = true
 	app.Config.Charset = "UTF-8"
-	app.Adapt(iris.DevLogger())
+	// app.Adapt(iris.DevLogger())
 
 	app.Adapt(httprouter.New())
 
